@@ -43,7 +43,7 @@ def _cmd_run(args: argparse.Namespace) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(
         prog="content_agent",
-        description="AI Content Agent: research-to-posting, one run = one day of content.",
+        description="GhostScribe: research-to-posting, one run = one day of content.",
     )
     parser.add_argument("--config", help="Path to config.yaml (default: project config)")
     sub = parser.add_subparsers(dest="command")
