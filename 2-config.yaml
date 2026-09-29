@@ -1,0 +1,57 @@
+# ============================================================
+#  AI Content Agent - configuration
+#  Everything the agent does is tuned here. Edit and re-run.
+# ============================================================
+
+profile:
+  name: nowshirwan
+  # Your niche. Research scoring and all generated content follow these topics.
+  niche:
+    - cybersecurity
+    - artificial intelligence
+    - tech for students
+  # Voice the generator writes in. Plain words, no hype.
+  voice: >-
+    Direct, educational and student-friendly. Strong hooks, short sentences,
+    simple words, no clickbait and no exaggerated claims.
+
+research:
+  # Free news sources. Add or remove RSS feeds as you like.
+  feeds:
+    - name: The Hacker News
+      url: https://feeds.feedburner.com/TheHackersNews
+      category: cybersecurity
+    - name: BleepingComputer
+      url: https://www.bleepingcomputer.com/feed/
+      category: cybersecurity
+    - name: SecurityWeek
+      url: https://www.securityweek.com/feed/
+      category: cybersecurity
+    - name: Google AI Blog
+      url: https://blog.google/technology/ai/rss/
+      category: ai
+    - name: OpenAI News
+      url: https://openai.com/news/rss.xml
+      category: ai
+    - name: MIT Technology Review - AI
+      url: https://www.technologyreview.com/topic/artificial-intelligence/feed/
+      category: ai
+  max_age_hours: 48      # ignore stories older than this
+  top_stories: 5         # how many stories make it into the daily digest
+
+content:
+  carousel_slides: 8     # slides per Instagram carousel (title + closing included)
+  hashtags: 5            # hashtags per caption
+  language: English
+  # Reference only: the times you post. Keeps the plan visible in one place.
+  posting_schedule:
+    instagram_news: "08:00"
+    linkedin_morning: "10:00"
+    linkedin_evening: "18:00"
+    instagram_plan: "19:00"
+    reel: "21:00"
+
+# Gemini model on the free tier (AI Studio key).
+gemini_model: gemini-2.0-flash
+
+output_dir: output
