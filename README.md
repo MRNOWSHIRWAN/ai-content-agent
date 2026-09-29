@@ -1,4 +1,4 @@
-# AI Content Agent
+# GhostScribe
 
 Your personal content engine: it researches today's top cybersecurity and AI news,
 then writes a full day of social content for you - an Instagram carousel, a LinkedIn
@@ -27,8 +27,8 @@ You need **Python 3.10+** and a **free Gemini API key**.
 
 ```bash
 # 1. Clone the repo and enter it
-git clone https://github.com/MRNOWSHIRWAN/ai-content-agent.git
-cd ai-content-agent
+git clone https://github.com/MRNOWSHIRWAN/ghostscribe.git
+cd ghostscribe
 
 # 2. Install dependencies
 pip install -r requirements.txt
@@ -72,13 +72,13 @@ Everything is tuned in **`config.yaml`** - no code changes needed:
 Linux/macOS cron example, runs daily at 7:30 AM:
 
 ```cron
-30 7 * * * cd /path/to/ai-content-agent && /usr/bin/python3 -m content_agent run
+30 7 * * * cd /path/to/ghostscribe && /usr/bin/python3 -m content_agent run
 ```
 
 ## Project structure
 
 ```
-ai-content-agent/
+ghostscribe/
 ├── config.yaml            # all settings: niche, feeds, style
 ├── .env.example           # where your Gemini key goes
 ├── requirements.txt
