@@ -64,7 +64,7 @@ export default {
     prompt=researchPrompt(body.topic,body.language,sources);
    }
    const upstream=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':env.GEMINI_API_KEY},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.3,maxOutputTokens:1800}}),signal:AbortSignal.timeout(30000)}).catch(()=>null);
-   if(!upstream || !upstream.ok)return json({error:'AI is unavailable or free quota is exhausted. No paid fallback.'},503);
+   if(!upstream || !upstream.ok)return json({error:'AI is unavailable or free quota is exhausted. No paid fallback.',upstream_status:upstream?.status||'network-timeout'},503);
    const data=await upstream.json(); const text=data.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('');
    return text?json({text,mode:path==='/chat'?'user-submitted-online-chat':'public-only',model:MODEL,sources:sources.map(({title,url})=>({title,url})),notice:path==='/chat'?'Online chat: your typed question was sent to free Gemini. Not live sourced research.':path==='/deep-research'?'Curated public-source synthesis. Limited excerpts; check linked originals.':'General study lesson'}):json({error:'No lesson returned'},503);
   }
