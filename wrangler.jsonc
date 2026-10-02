@@ -11,5 +11,8 @@
       "database_name": "ghostscribe-quota",
       "database_id": "dad64855-8c05-4a34-9a58-724937265403"
     }
-  ]
+  ],
+  "vars": {
+    "GEMINI_MODEL": "gemini-3.1-flash-lite"
+  }
 }
