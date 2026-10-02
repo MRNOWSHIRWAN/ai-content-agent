@@ -1,5 +1,8 @@
 # GhostScribe
 
+> Gateway source preview: an authenticated Cloudflare Worker for opt-in non-personal online chat, study and limited public-source research is included. See [gateway setup](GATEWAY-SETUP.md). Android source and a phone-tested APK are not part of this publication yet. The gateway stays locked until secrets and quota storage are configured. No private notes, reminders or profile are automatically attached. Online typed questions reach Google free-tier Gemini and may be used to improve products. Do not type private information. No billing or paid fallback is configured.
+
+
 Your personal content engine: it researches today's top cybersecurity and AI news,
 then writes a full day of social content for you - an Instagram carousel, a LinkedIn
 post, and captions - all in one command.
@@ -13,7 +16,7 @@ Built with Python + Google Gemini (free tier). No paid services.
 1. **Research** - pulls fresh stories from free public RSS feeds (The Hacker News,
    BleepingComputer, SecurityWeek, Google AI, OpenAI, MIT Tech Review), scores them
    against your niche, drops duplicates, and picks the top 5.
-2. **Generate** - sends the verified stories to Gemini and gets back:
+2. **Generate** - sends public RSS excerpts to Gemini and gets back:
    - Instagram carousel slide texts (8 slides, title + recap/CTA)
    - An informative LinkedIn post with a hook and question CTA
    - A caption: hook + body + CTA + 5 hashtags
@@ -93,9 +96,9 @@ ghostscribe/
 
 ## Notes
 
-- The Gemini free tier has generous rate limits - plenty for daily runs.
+- Free-tier model availability and rate limits can change. Check the provider before relying on daily runs.
 - Your API key stays local in `.env` (gitignored). Never commit it.
-- Always read the output before posting. The agent drafts, you approve.
+- Always read the output before posting. The agent drafts, you approve. RSS excerpts are discovery material, not independently verified articles.
 
 ## License
 
