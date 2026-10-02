@@ -1,6 +1,6 @@
 # GhostScribe
 
-> Gateway source preview: an authenticated Cloudflare Worker for opt-in non-personal online chat, study and limited public-source research is included. See [gateway setup](GATEWAY-SETUP.md). Android source and a phone-tested APK are not part of this publication yet. The gateway stays locked until secrets and quota storage are configured. No private notes, reminders or profile are automatically attached. Online typed questions reach Google free-tier Gemini and may be used to improve products. Do not type private information. No billing or paid fallback is configured.
+> Android assistant 0.1 preview: [current source archive](3-GhostScribe-Android-Source-0.1-paired-preview.zip) and [setup guide](4-GhostScribe-Setup.md). The archive includes Android source, gateway modules, tests and build instructions. Private notes/reminders stay local. Online non-personal chat goes to Google after consent; study/research uses limited sources. No credentials, signed APK or owner pairing file is public. Each user must deploy their own gateway. Current APK is compiled and signed but not phone-tested. No billing or paid fallback is configured. Earlier source archives are kept for history; use the current archive.
 
 
 Your personal content engine: it researches today's top cybersecurity and AI news,
