@@ -37,6 +37,12 @@ export default {
   let raw=await request.text();if(raw.length>2048)return json({error:'Request too large'},413);
   let body;try{body=JSON.parse(raw);}catch{return json({error:'Invalid JSON'},400);}
   const path=new URL(request.url).pathname;
+  if(path==='/models') {
+   if(Object.keys(body).length)return json({error:'No fields accepted'},400);
+   const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models',{headers:{'x-goog-api-key':env.GEMINI_API_KEY},signal:AbortSignal.timeout(15000)}).catch(()=>null);
+   if(!r||!r.ok)return json({error:'Model listing unavailable',upstream_status:r?.status||'network-timeout'},503);
+   const d=await r.json();return json({models:(d.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent')).map(m=>m.name)});
+  }
   if(path==='/study' || path==='/deep-research' || path==='/chat') {
    let prompt;let sources=[];
    try{if(path==='/study')prompt=studyPrompt(body);else if(path==='/chat')prompt=chatPrompt(body);else validateResearch(body);}catch(e){return json({error:e.message},400);}
@@ -63,7 +69,7 @@ export default {
     if(!sources.length)return json({error:'No readable primary source found. No unsourced report generated.'},503);
     prompt=researchPrompt(body.topic,body.language,sources);
    }
-   const upstream=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':env.GEMINI_API_KEY},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.3,maxOutputTokens:1800}}),signal:AbortSignal.timeout(30000)}).catch(()=>null);
+   const upstream=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${env.GEMINI_MODEL||MODEL}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':env.GEMINI_API_KEY},body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.3,maxOutputTokens:1800}}),signal:AbortSignal.timeout(30000)}).catch(()=>null);
    if(!upstream || !upstream.ok)return json({error:'AI is unavailable or free quota is exhausted. No paid fallback.',upstream_status:upstream?.status||'network-timeout'},503);
    const data=await upstream.json(); const text=data.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('');
    return text?json({text,mode:path==='/chat'?'user-submitted-online-chat':'public-only',model:MODEL,sources:sources.map(({title,url})=>({title,url})),notice:path==='/chat'?'Online chat: your typed question was sent to free Gemini. Not live sourced research.':path==='/deep-research'?'Curated public-source synthesis. Limited excerpts; check linked originals.':'General study lesson'}):json({error:'No lesson returned'},503);
